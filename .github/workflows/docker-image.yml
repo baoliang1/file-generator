@@ -15,4 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag go-file-generator:$(date +%s)
+      run: 
+        docker build . --file Dockerfile --tag harbor.service.com:32429/library/go-file-generator:$(date +%s)
+        docker push harbor.service.com:32429/library/go-file-generator:$(date +%s) 

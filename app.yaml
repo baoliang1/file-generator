@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: file-generator-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+#      nodePort: 30001
+  selector:
+    app: file-generator
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: file-generator-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: file-generator
+  template:
+    metadata:
+      labels:
+        app: file-generator
+    spec:
+      containers:
+        - name: file-generator-container
+          image: go-file-generator
+          ports:
+            - containerPort: 8080
